@@ -8,11 +8,19 @@
 
 <script>
 import home from '~/data/homes';
-import HomeCard from "~/components/HomeCard";
 export default {
   name: "index",
-  components:{
-    HomeCard
+  head(){
+
+    return{
+      title:"Homepage",
+      meta:[{
+        name:"description",
+        content:"This is a homepage!",
+        hid:"description",
+      }]
+
+    }
   },
   data() {
     return {

@@ -20,4 +20,29 @@
 
 
 
-|9:
+9: config
+
+    nuxt.config.js
+
+        export default{
+            componets:true,   // now you don't need to add HomeCard component: components:{HomeCard}
+        }
+
+
+10: head meta charset utf8 titleTemplate %s bodyAttrs htmlAttrs lang en hid name content hid title
+    head
+
+    index.vue:
+        head(){
+            // todo
+        }
+
+    nuxt.config.js:
+        head:{
+            // todo
+        }
+
+
+11:router id home
+
+
