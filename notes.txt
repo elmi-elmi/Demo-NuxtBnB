@@ -1,0 +1,22 @@
+|1:8|
+
+    yarn add nuxt
+
+
+    package.json:
+
+        "name":"mastering-nuxt",
+        "scripts":{
+            "dev":"nuxt",
+            "start":"nuxt start",
+            "build":"nuxt build"
+        }
+
+
+
+    yarn dev
+
+    yarn start  // run immediatly without build
+
+
+
