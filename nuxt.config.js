@@ -12,5 +12,7 @@ export default{
         meta:[{
             charset:"utf8"
         }]
-    }
+    },
+
+
 }

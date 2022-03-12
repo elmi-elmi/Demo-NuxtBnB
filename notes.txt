@@ -34,20 +34,35 @@
 
     index.vue:
         head(){
-            // todo
+            return{
+                title:'Home Page',
+                meta:[{
+                    name:'descrition,
+                    content:'This is a homepage',
+                    hid:'descrition'
+                }]
+            }
         }
 
     nuxt.config.js:
         head:{
-            // todo
+            titleTemplate:'Matering Nuxt %s'  // title in head of index.vue replace %s,
+            htmlAttrs:{lang:'en'},
+            bodyAttrs:{class:['my-style']},
+            meta:[{charset:'utf8'}]
         }
 
 
-11:router id home
+11:12: router id home params
 
-    // todo
+    folder make path
 
-12:
+    pages: mkdire home
+    home: mkdire _id.vue
+
+    for access to id ==> this.$route.params.id
+
+
 
 13
 

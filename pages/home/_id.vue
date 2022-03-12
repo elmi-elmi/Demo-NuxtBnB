@@ -15,7 +15,7 @@
 import homes from '~/data/homes.json';
 
 export default {
-  name: "_id",
+  name: "id",
   head(){
     return{
       title:this.home.title
