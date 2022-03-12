@@ -64,6 +64,31 @@
 
 
 
-13
+13: a tag -- router-link -- nuxt-link -- no-prefetch prefetch
+
+    a --> reload all page
+    router-link --> do not reload all page
+    nuxt-link --> have some option --> prefetch page -- and if you dont want to use it you can use no-prefetch
+
+    nuxt-link ==> default preferch is true
+
+    // to do write code:
+
+14:  prefetch config -- router -- preferchLink
+    // todo
+
+15:
+    layouts default red layout:'red' <nuxt/>
+    //todo
+16:18
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU"></script>
+    <script type="module" src="./src/index.ts"></script>
+
+
+
+   head -- scripts -- link -- how to use  map api -- token accessToken -- marker -mapbox  // todo
+
+19:
 
 

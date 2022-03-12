@@ -14,5 +14,9 @@ export default{
         }]
     },
 
+    router:{
+        prefetchLink:false,
+    }
+
 
 }

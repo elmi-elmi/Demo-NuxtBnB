@@ -9,6 +9,7 @@
     "start": "nuxt start"
   },
   "devDependencies": {
-    "@nuxt/types": "~2.15.0"
+    "@nuxt/types": "~2.15.0",
+    "prettier": "^2.5.1"
   }
 }
