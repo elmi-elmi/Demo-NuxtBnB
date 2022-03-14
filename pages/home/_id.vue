@@ -31,49 +31,35 @@ export default {
         //   defer: true,
         // }
         // ,
-        {
-          src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&callback=initMap",
-          hid: "map",
-          defer: true,
-          skip:process.client && window.mapLoaded
-        }
+        // {
+        //   src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&callback=initMap",
+        //   hid: "map",
+        //   defer: true,
+        //   skip: process.client && window.mapLoaded
+        // }
         ,
-        {
-          innerHTML: "window.initMap = function(){window.mapLoaded = true;}",
-          hid: 'map-init'
-        }
+        // {
+        //   innerHTML: "window.initMap = function(){window.mapLoaded = true;}",
+        //   hid: 'map-init'
+        // }
       ],
       // link: [{
       //   rel: 'stylesheet',
       //   href: 'https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css',
       // }],
-      __dangerouslyDisableSanitizersByTagID: {"map-init": ['innerHtml']}
+      // __dangerouslyDisableSanitizersByTagID: {"map-init": ['innerHtml']}
 
     }
   },
-  methods:{
-   showMap(){
-     console.log('mounted');
-     const uluru = {lat: this.home._geoloc.lat, lng: this.home._geoloc.lng};
-     const map = new google.maps.Map((this.$refs.map), {
-       center:uluru ,
-       zoom: 8
-     });
-
-     // The marker, positioned at Uluru
-     const marker = new google.maps.Marker({
-       position: uluru,
-       map: map,
-     });
-   }
-  },
+  methods: {},
   mounted() {
-    const interval = setInterval(()=>{
-      if(window.mapLoaded) {
-        clearInterval(interval)
-        this.showMap()
-      };
-    }, 200)
+    this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng);
+    // const interval = setInterval(()=>{
+    //   if(window.mapLoaded) {
+    //     clearInterval(interval)
+    //     this.showMap()
+    //   };
+    // }, 200)
     // const map = new mapboxgl.Map({
     //   accessToken: 'pk.eyJ1Ijoic2hhaHJva2hlbCIsImEiOiJjbDBudzExeDAwZjNzM2JtenczcHByZnlxIn0.hsLE0MhdDSdPitnkB3-Kfw',
     //   // container: 'map',
