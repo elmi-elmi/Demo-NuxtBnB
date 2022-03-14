@@ -72,23 +72,95 @@
 
     nuxt-link ==> default preferch is true
 
-    // to do write code:
+
+    <nuxt-link to="/home.." no-preferch...><>
 
 14:  prefetch config -- router -- preferchLink
-    // todo
+    // you can set prefetch default to false and use `prefetch` to set true anywhere you want
+
 
 15:
     layouts default red layout:'red' <nuxt/>
-    //todo
-16:18
 
+    mkdir layouts:
+    touch default.vue:
+        <div>
+                ....
+            <Nuxt/>
+        </div>
+
+16:18
+    ref refs
+
+    set ref="map" and use this.$refs.map
+
+
+    api key ==> google map api
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU"></script>
     <script type="module" src="./src/index.ts"></script>
 
 
+    head -- scripts -- link -- how to use  map api -- token accessToken -- marker -mapbox  // todo
 
-   head -- scripts -- link -- how to use  map api -- token accessToken -- marker -mapbox  // todo
+    mapbox api key:
+      my accessToken:  'pk.eyJ1Ijoic2hhaHJva2hlbCIsImEiOiJjbDBudzExeDAwZjNzM2JtenczcHByZnlxIn0.hsLE0MhdDSdPitnkB3-Kfw'
+
 
 19:
+
+
+
+fallback:
+js applications. A fallback function specifies an action that is performed whenever a call to a remote service fails. For example, you can use a fallback function to send a customized message about service failures to the client.
+
+callback (initmap):
+A JavaScript callback is a function which is to be executed after another function has finished execution. A more formal definition would be - Any function that is passed as an argument to another function so that it can be executed in that other function is called as a callback function.
+
+
+=======================================================
+3- Working with Google Maps
+=======================================================
+
+4:
+    nuxt is adding the script tag and removing it as needed
+        but since it's adding and removing a script tag
+            the code in that url is run each time it does it
+    and since nuxt is a single page app everything stays in the browser's memory
+    we need a way to ensure that this script tag is ran only once the lifetime of the visitor's session
+
+
+    the server is node
+    node it has not idea what the windows is
+
+    if you add script and add innerHtml for security reason that html coded.
+    so if you want to decode:
+
+    (dont use this:)
+    __dangerouslyDisableSanitizersByTagID:{"map-init":['innerHtml']}
+
+    skip tag: //todo
+
+    <script skip= process.client && windows.mapLoaded ...
+
+5:
+
+    async and defer
+
+    async very similar to defer
+    it download javescript file asyncronously but it does not wait for anything else to executed
+
+
+6:
+    plugin:
+
+
+    mkdir plugins
+
+        use .client.js ==> just for browser
+        use .server.js ==> just for server side
+        use nothing    ==> for both
+
+
+
 
 
