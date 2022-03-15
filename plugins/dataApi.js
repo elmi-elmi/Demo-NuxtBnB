@@ -32,7 +32,6 @@ export default function (context, inject) {
             status,
             statusText
         }
-
     }
 
     function getErrorResponse(error){

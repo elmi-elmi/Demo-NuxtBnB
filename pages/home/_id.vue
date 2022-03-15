@@ -15,9 +15,7 @@
 </template>
 
 <script>
-import homes from '~/data/homes.json';
-
-
+// import homes from '~/data/homes.json';
 export default {
   name: "id",
   head() {
@@ -86,10 +84,11 @@ export default {
     // this.home = homes.find(home => home.objectID === this.$route.params.id)
     const response = await $dataApi.getHome(params.id)
     if (!response.ok) {
-      console.log('outer error', response.status, response.statusText)
+      console.log('asyncData error', response.status, response.statusText)
       return error({statusCode: response.status, message: response.statusText})
     }
-    return {home: response.json
+    return {
+      home: response.json
     }
   }
 }
