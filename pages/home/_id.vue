@@ -78,11 +78,19 @@ export default {
 
 
   },
-  data() {
-    return {home: {}}
-  },
-  created() {
-    this.home = homes.find(home => home.objectID === this.$route.params.id)
+  // data() {
+  //   return {home: {}}
+  // },
+  async asyncData({$dataApi, params, error}) {
+    console.log('asyncData fire ****')
+    // this.home = homes.find(home => home.objectID === this.$route.params.id)
+    const response = await $dataApi.getHome(params.id)
+    if (!response.ok) {
+      console.log('outer error', response.status, response.statusText)
+      return error({statusCode: response.status, message: response.statusText})
+    }
+    return {home: response.json
+    }
   }
 }
 </script>

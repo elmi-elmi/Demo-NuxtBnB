@@ -151,7 +151,7 @@ A JavaScript callback is a function which is to be executed after another functi
 
 
 6:
-    plugin:
+    plugins:
 
 
     mkdir plugins
@@ -160,12 +160,35 @@ A JavaScript callback is a function which is to be executed after another functi
         use .server.js ==> just for server side
         use nothing    ==> for both
 
+
+
     nuxt config:
             plugins:[{src:'~/plugins/maps.client',mode:'client'}]
 
             or
 
             plugins:['~/plugins/maps.client']
+
+
+
+    two argument: context, inject
+
+    context content all router, vuex,....
+    inject => with inject you can use $ and use it in code. take two argument. first:name, second: functions you want two use with this.$maps.[nameFunction]
+
+    inject('maps', {showMap})
+
+    this.$maps.showMap()....
+
+
+=======================================================
+4- Working with APIs
+=======================================================
+1:
+
+
+
+
 
 
 

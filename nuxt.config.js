@@ -19,7 +19,7 @@ export default{
     },
 
     // plugins:[{src:'~/plugins/maps.client',mode:'client'}]
-    plugins:['~/plugins/maps.client.js']
+    plugins:['~/plugins/maps.client.js', '~/plugins/dataApi.js']
 
 
 }
