@@ -82,13 +82,21 @@ export default {
   async asyncData({$dataApi, params, error}) {
     console.log('asyncData fire ****')
     // this.home = homes.find(home => home.objectID === this.$route.params.id)
-    const response = await $dataApi.getHome(params.id)
-    if (!response.ok) {
-      console.log('asyncData error', response.status, response.statusText)
-      return error({statusCode: response.status, message: response.statusText})
+    const homeId = params.id;
+    const homeResponse = await $dataApi.getHome(homeId)
+    if (!homeResponse.ok) {
+      console.log('asyncData error', homeResponse.status, homeResponse.statusText)
+      return error({statusCode: homeResponse.status, message: homeResponse.statusText})
     }
+
+    const reviewResponse = await $dataApi.getReviewByHomeId(homeId);
+    if(!reviewResponse.ok) return error({statusCode:reviewResponse.status, message:reviewResponse.statusText});
+    console.log('reviews:')
+    console.log(reviewResponse.json.hits)
+
     return {
-      home: response.json
+      home: homeResponse.json,
+      // reviews: reviewResponse.json.facetHits
     }
   }
 }
