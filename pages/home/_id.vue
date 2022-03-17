@@ -11,6 +11,15 @@
     {{ home.guests }} guests, {{ home.bedrooms }} rooms, {{ home.beds }}, {{ home.bathrooms }} bath<br/>
     {{ home.description }}<br/>
     <div style="height: 330px;width: 330px" ref="map"></div>
+    <div v-for="review in reviews">
+      <img :src="review.reviewer.image"> <br/>
+      {{review.reviewer.name}} <br/>
+      {{review.rating}} <br/>
+      {{review.date}} <br/>
+      {{review.comment}} <br/><br/><br/>
+    </div>
+    <img :src="home.host.image" height="100">
+
   </div>
 </template>
 
@@ -80,7 +89,7 @@ export default {
   //   return {home: {}}
   // },
   async asyncData({$dataApi, params, error}) {
-    console.log('asyncData fire ****')
+    console.log('asyncData _id.vie fire........')
     // this.home = homes.find(home => home.objectID === this.$route.params.id)
     const homeId = params.id;
     const homeResponse = await $dataApi.getHome(homeId)
@@ -94,9 +103,12 @@ export default {
     console.log('reviews:')
     console.log(reviewResponse.json.hits)
 
+    console.log('homes:')
+    console.log(homeResponse.json)
+
     return {
       home: homeResponse.json,
-      // reviews: reviewResponse.json.facetHits
+      reviews: reviewResponse.json.hits
     }
   }
 }

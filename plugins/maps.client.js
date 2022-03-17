@@ -1,4 +1,6 @@
 export default function (context, inject) {
+    console.log('maps.client started...........')
+
     let mapLoaded = false;
     let mapWaiting = null;
 
@@ -21,7 +23,6 @@ export default function (context, inject) {
         script.async = true;
         // script.skip = process.client && mapLoaded;
         window.initMap = initMap;
-        console.log(script)
         document.head.appendChild(script);
     }
 

@@ -1,4 +1,5 @@
 export default function (context, inject) {
+    console.log('dataApi started...........')
     inject('dataApi', {getHome, getReviewByHomeId});
     const appId = 'JXK9WC90S0';
     const apiKey = '010bc370d2dcd9c251e72617c59455ee';
@@ -27,7 +28,7 @@ export default function (context, inject) {
     async function getReviewByHomeId(homeId) {
         try {
             console.log('getReview')
-            // return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/reviews/facets/homeId/query`), {
+            // return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/reviews/facets/${homeId}/query`, {
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/reviews/query`, {
                 headers,
                 method: 'POST',
