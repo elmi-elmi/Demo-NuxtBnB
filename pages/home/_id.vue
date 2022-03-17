@@ -29,70 +29,20 @@ export default {
   name: "id",
   head() {
     return {
-      title: this.home.title,
-      script: [
-        //     {
-        //   src: "https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js",
-        //   src:https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU",
-        //   hid: "map",
-        //   defer: true,
-        // }
-        // ,
-        // {
-        //   src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&callback=initMap",
-        //   hid: "map",
-        //   defer: true,
-        //   skip: process.client && window.mapLoaded
-        // }
-        ,
-        // {
-        //   innerHTML: "window.initMap = function(){window.mapLoaded = true;}",
-        //   hid: 'map-init'
-        // }
-      ],
-      // link: [{
-      //   rel: 'stylesheet',
-      //   href: 'https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css',
-      // }],
-      // __dangerouslyDisableSanitizersByTagID: {"map-init": ['innerHtml']}
-
+      title: this.home.title
     }
   },
-  methods: {},
   mounted() {
+    console.log('mounted  _id.vue')
     this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng);
-    // const interval = setInterval(()=>{
-    //   if(window.mapLoaded) {
-    //     clearInterval(interval)
-    //     this.showMap()
-    //   };
-    // }, 200)
-    // const map = new mapboxgl.Map({
-    //   accessToken: 'pk.eyJ1Ijoic2hhaHJva2hlbCIsImEiOiJjbDBudzExeDAwZjNzM2JtenczcHByZnlxIn0.hsLE0MhdDSdPitnkB3-Kfw',
-    //   // container: 'map',
-    //   container: this.$refs.map,
-    //   style: 'mapbox://styles/mapbox/streets-v11',
-    //   center: [+this.home._geoloc.lng, +this.home._geoloc.lat],
-    //   zoom: 17
-    // });
-    // const marker = new mapboxgl.Marker({
-    //   draggable: true
-    // })
-    //     .setLngLat([+this.home._geoloc.lng, +this.home._geoloc.lat])
-    //     .addTo(map);
-    //
-    // map.on('load',initMap)
-
-
   },
-  // data() {
-  //   return {home: {}}
-  // },
+
   async asyncData({$dataApi, params, error}) {
-    console.log('asyncData _id.vie fire........')
-    // this.home = homes.find(home => home.objectID === this.$route.params.id)
+    console.log('asyncData _id.vue fire........')
+
     const homeId = params.id;
     const homeResponse = await $dataApi.getHome(homeId)
+    console.log('homeResponse:', homeResponse)
     if (!homeResponse.ok) {
       console.log('asyncData error', homeResponse.status, homeResponse.statusText)
       return error({statusCode: homeResponse.status, message: homeResponse.statusText})

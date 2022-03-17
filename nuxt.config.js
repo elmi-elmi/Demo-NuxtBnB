@@ -14,12 +14,12 @@ export default{
         }]
     },
 
-    router:{
-        prefetchLink:false,
-    },
+    // router:{
+    //     prefetchLinks:false,
+    // },
 
     // plugins:[{src:'~/plugins/maps.client',mode:'client'}]
-    plugins:['~/plugins/maps.client.js', '~/plugins/dataApi.js']
+    plugins:['~/plugins/maps.client', '~/plugins/dataApi']
 
 
 }
