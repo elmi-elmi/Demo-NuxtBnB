@@ -188,6 +188,14 @@ A JavaScript callback is a function which is to be executed after another functi
     layout: error.vue
 8:
 
+    created vs mounted //todo
+    computed //todo
+    substring //todo
+
+
+
+
+9:
 
 
 
