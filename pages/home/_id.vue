@@ -10,6 +10,7 @@
         height="150"
       />
     </div>
+
     {{ home.title }}<br />
     ${{ home.pricePerNight }} / night <br />
     <img
@@ -32,19 +33,18 @@
     {{ home.description }}<br />
     <div style="height: 330px; width: 330px" ref="map"></div>
     <div v-for="review in reviews">
-      <img :src="review.reviewer.image" /> <br />
+      <img :src="review.reviewer.image" alt="reviewer" /> <br />
       {{ review.reviewer.name }} <br />
       {{ review.rating }} <br />
       {{ review.date }} <br />
       <ShortText :text="review.comment" :target="200" />
     </div>
-<!--    <img :src="home.host.image" height="100" />-->
-    <img :src="user.image" alt="user"> <br/>
-    {{user.name}} <br/>
-    {{formatData(user.joined)}}
-    {{user.reviewCount}} <br/>
-    {{user.description}}
-
+    <!--    <img :src="home.host.image" height="100" />-->
+    <img :src="user.image" alt="user" /> <br />
+    {{ user.name }} <br />
+    {{ formatData(user.joined) }}
+    {{ user.reviewCount }} <br />
+    {{ user.description }}
   </div>
 </template>
 
@@ -59,12 +59,17 @@ export default {
       title: this.home.title,
     };
   },
-  methods:{
-    formatData(dateStr){
+
+  methods: {
+    formatData(dateStr) {
       const date = new Date(dateStr);
-      return date.toLocaleDateString(undefined, {month:'long', year:'numeric'})
-    }
+      return date.toLocaleDateString(undefined, {
+        month: "long",
+        year: "numeric",
+      });
+    },
   },
+
   mounted() {
     console.log("mounted  _id.vue");
     this.$maps.showMap(
@@ -76,43 +81,52 @@ export default {
 
   async asyncData({ $dataApi, params, error }) {
     console.log("asyncData _id.vue fire........");
-
     const homeId = params.id;
-
-    const homeResponse = await $dataApi.getHome(homeId);
-    if (!homeResponse.ok) {
-      console.log(
-        "asyncData error",
-        homeResponse.status,
-        homeResponse.statusText
-      );
+    const responses = await Promise.all([
+      $dataApi.getHome(homeId),
+      $dataApi.getReviewByHomeId(homeId),
+      $dataApi.getUserByHomeId(homeId),
+    ]);
+    const badResponse = responses.find((response) => !response.ok);
+    if (badResponse)
       return error({
         statusCode: homeResponse.status,
         message: homeResponse.statusText,
       });
-    }
-
-    const reviewResponse = await $dataApi.getReviewByHomeId(homeId);
-    if (!reviewResponse.ok)
-      return error({
-        statusCode: reviewResponse.status,
-        message: reviewResponse.statusText,
-      });
-
-    const userResponse = await $dataApi.getUserByHomeId(homeId);
-    if (!userResponse) {
-      return error({
-        statusCode: reviewResponse.status,
-        message: userResponse.statusText,
-      });
-    }
+    // const homeId = params.id;
+    // const homeResponse = await $dataApi.getHome(homeId);
+    // if (!homeResponse.ok) {
+    //   console.log(
+    //     "asyncData error",
+    //     homeResponse.status,
+    //     homeResponse.statusText
+    //   );
+    //   return error({
+    //     statusCode: homeResponse.status,
+    //     message: homeResponse.statusText,
+    //   });
+    // }
+    //
+    // const reviewResponse = await $dataApi.getReviewByHomeId(homeId);
+    // if (!reviewResponse.ok)
+    //   return error({
+    //     statusCode: reviewResponse.status,
+    //     message: reviewResponse.statusText,
+    //   });
+    //
+    // const userResponse = await $dataApi.getUserByHomeId(homeId);
+    // if (!userResponse) {
+    //   return error({
+    //     statusCode: reviewResponse.status,
+    //     message: userResponse.statusText,
+    //   });
+    // }
     console.log("**********************8");
-    console.log(userResponse.json.hits);
 
     return {
-      home: homeResponse.json,
-      reviews: reviewResponse.json.hits,
-      user: userResponse.json.hits[0],
+      home: responses[0].json,
+      reviews: responses[1].json.hits,
+      user: responses[2].json.hits[0],
     };
   },
 };
