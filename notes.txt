@@ -194,8 +194,16 @@ A JavaScript callback is a function which is to be executed after another functi
     formatDate // todo
 
 
+
 9:
 
+10:
+    Promise.all
+
+
+=======================================================
+5-  Geo Search
+=======================================================
 
 
 
