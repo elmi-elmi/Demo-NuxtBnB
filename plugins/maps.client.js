@@ -36,7 +36,7 @@ export default function (context, inject) {
         });
         return;
       }
-      const center = { lat: 50.064192, lng: -130.605469 };
+      // const center = { lat: 50.064192, lng: -130.605469 };
       // Create a bounding box with sides ~10km away from the center point
       //         const defaultBounds = {
       //             north: center.lat + 0.1,
@@ -56,6 +56,11 @@ export default function (context, inject) {
         input,
           {types:'(cities)'}
       );
+
+      autocomplete.addListener('place_changed',()=>{
+          const place = autocomplete.getPlace();
+          input.dispatchEvent(new CustomEvent('changed', {detail:place}))
+      })
     }
 
     function showMap(canvas, lat, lng) {
@@ -66,6 +71,7 @@ export default function (context, inject) {
             })
             return
         }
+
         const uluru = {lat, lng};
         const map = new google.maps.Map(canvas, {
             center: uluru,

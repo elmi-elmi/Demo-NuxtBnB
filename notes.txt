@@ -209,10 +209,59 @@ A JavaScript callback is a function which is to be executed after another functi
 5-  Geo Search
 =======================================================
 1:
-2: autocomplete google place
+2: autocomplete google place -- dispatchEvent -- CustomEvent
+
+    // 1
+
+        add &libraries=places to src script
+
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?       key=YOUR_API_KEY&libraries=places&callback=initMap">
+        </script>
+
+    // 2
+                const autocomplete = new window.google.maps.places.Autocomplete(
+                    input,
+                    {types:'(cities)'}
+                );
+
+            input html element you want to search in
 
 
+    you can add listener:
 
+    autocomplete.addListener('place_changed',()=>{
+            const place = autocomplete.getPlace();
+            input.dispatchEvent(new CustomEvent('changed', {detail:place}))
+        })
+
+        ####################################################
+    dispatchEvent:
+        dispatchEvent using for call synthetic events;
+
+
+    CustomEvent:
+        you can build an event
+
+
+    // 1 select your html element
+    const elme = document.querySelect....
+
+    // 2 define your event
+    const myEvent = new CustomEvent('nameOfMyEvent', option);
+        --> option = {detail:place}
+
+    // 3 dispatch event (call it when you want)
+    elme.dispatchEvent(myEvent);
+
+    in option you can pass everything you want
+
+    <input @nameOfMyEvent='nameOfMyEvent' />
+
+    nameOfMyEvent(event){
+        const place = event.detail;
+        }
+        ####################################################
 
 
 
