@@ -95,9 +95,13 @@
     set ref="map" and use this.$refs.map
 
 
-    api key ==> google map api
+    api key ==> google map api  **** typescript cours ****
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU"></script>
     <script type="module" src="./src/index.ts"></script>
+
+   ***** Nuxt course ***** use this api key for autocomplete place
+
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDkDD_tREr9fuTi7dGQharS79THbjMBDiU&libraries=places&callback=initGoogleMap"
 
 
     head -- scripts -- link -- how to use  map api -- token accessToken -- marker -mapbox  // todo
@@ -204,6 +208,10 @@ A JavaScript callback is a function which is to be executed after another functi
 =======================================================
 5-  Geo Search
 =======================================================
+1:
+2: autocomplete google place
+
+
 
 
 

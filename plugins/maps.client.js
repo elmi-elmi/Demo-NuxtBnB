@@ -2,41 +2,65 @@ export default function (context, inject) {
     console.log("maps.client started...........");
 
     let isMapLoaded = false;
-    let mapWaiting = [];
+    let waiting = [];
 
     addScript();
-    inject("maps", {showMap});
+    inject("maps", {showMap, makeAutoComplete});
 
     function initGoogleMap() {
-        // isMapLoaded = true;
-        // if (mapWaiting) {
-        //     const {canvas, lat, lng} = mapWaiting;
-        //     renderMap(canvas, lat, lng);
-        //     mapWaiting = null;
-        // }
-        mapWaiting.forEach(item=>{
+        waiting.forEach(item=>{
             isMapLoaded = true;
             if(typeof item.fn === 'function') {
                 item.fn(...item.arguments)
             }
         })
+
+        waiting=[];
     }
 
     function addScript() {
         const script = document.createElement("script");
-        script.src =
-            "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&callback=initGoogleMap";
+        // script.src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&libraries=places&callback=initGoogleMap";
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDkDD_tREr9fuTi7dGQharS79THbjMBDiU&libraries=places&callback=initGoogleMap"
         script.async = true;
         // script.skip = process.client && isMapLoaded;
         window.initGoogleMap = initGoogleMap;
         document.head.appendChild(script);
     }
 
+    function makeAutoComplete(input){
+      if (!isMapLoaded) {
+        waiting.push({
+          fn: makeAutoComplete,
+          arguments,
+        });
+        return;
+      }
+      const center = { lat: 50.064192, lng: -130.605469 };
+      // Create a bounding box with sides ~10km away from the center point
+      //         const defaultBounds = {
+      //             north: center.lat + 0.1,
+      //             south: center.lat - 0.1,
+      //             east: center.lng + 0.1,
+      //             west: center.lng - 0.1,
+      //         };
+      // const options = {
+      //     bounds: defaultBounds,
+      //     componentRestrictions: { country: "us" },
+      //     fields: ["address_components", "geometry", "icon", "name"],
+      //     strictBounds: false,
+      //     types: ["establishment"],
+      // };
+
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        input,
+          {types:'(cities)'}
+      );
+    }
+
     function showMap(canvas, lat, lng) {
-        // if (isMapLoaded) renderMap(canvas, lat, lng);
-        // else mapWaiting = {canvas, lat, lng};
         if(!isMapLoaded){
-            mapWaiting.push({
+            waiting.push({
                 fn:showMap,
                 arguments
             })
@@ -55,17 +79,4 @@ export default function (context, inject) {
         });
     }
 
-    // function renderMap(canvas, lat, lng) {
-    //     const uluru = {lat, lng};
-    //     const map = new google.maps.Map(canvas, {
-    //         center: uluru,
-    //         zoom: 8,
-    //     });
-    //
-    //     // The marker, positioned at Uluru
-    //     const marker = new google.maps.Marker({
-    //         position: uluru,
-    //         map: map,
-    //     });
-    // }
 }
