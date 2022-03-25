@@ -63,7 +63,6 @@ export default function (context, inject) {
 
 
         autocomplete.addListener('place_changed',()=>{
-            console.log('333333333333333')
 
             const place = autocomplete.getPlace();
           input.dispatchEvent(new CustomEvent('changedd', {detail:place}))
@@ -84,7 +83,7 @@ export default function (context, inject) {
         const uluru = {lat, lng};
         const map = new google.maps.Map(canvas, {
             center: uluru,
-            zoom: 8,
+            zoom: 14,
         });
 
         // The marker, positioned at Uluru

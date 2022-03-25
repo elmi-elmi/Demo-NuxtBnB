@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div>{{ lat }} / {{ lng }} / {{ label }}</div>
-    <div v-for="home in homes" :key="home.objectID">
-      {{home.title}}
+    <div>results for  {{ label }}</div>
+    <div style="height: 530px; width: 530px; float:right;" ref="map"></div>
+
+    <div v-if="homes.length>0">
+    <HomeRow   v-for="home in homes" :key="home.objectID" :home="home"/>
     </div>
+    <div v-else> No results found </div>
   </div>
 
 </template>
@@ -12,6 +15,18 @@
 export default {
   name: "search",
   // watchQuery:['lat'],
+  mounted(){
+    this.updateMap()
+  },
+  methods:{
+    updateMap(){
+      this.$maps.showMap(
+          this.$refs.map,
+          this.lat,
+          this.lng
+      );
+    }
+  },
   async beforeRouteUpdate(to, from, next){
     console.log('beforerouterUpdate')
     const data = await this.$dataApi.getHomeByLocation(to.query.lat, to.query.lng)
@@ -20,6 +35,7 @@ export default {
     this.lat = to.query.lat;
     this.lng = to.query.lng;
     this.label = to.query.label;
+    this.updateMap();
     next();
   },
   async asyncData({query, $dataApi}) {

@@ -281,6 +281,22 @@ A JavaScript callback is a function which is to be executed after another functi
 
 
 
-4:  watchQuery
+4:5  watchQuery -- beforeRouteUpdate
+
+    watchQuery:['lng'],
+
+
+        ********************************************
+    watchQuery bug
+
+    watchQuery does not update route after seconds
+
+    so you can use beforeRouteUpdate instead of watchQuery
+
+        ********************************************
+
+6:
+
+7:
 
 
