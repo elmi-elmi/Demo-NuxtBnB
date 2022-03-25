@@ -59,7 +59,7 @@ export default function (context, inject) {
 
       autocomplete.addListener('place_changed',()=>{
           const place = autocomplete.getPlace();
-          input.dispatchEvent(new CustomEvent('changed', {detail:place}))
+          input.dispatchEvent(new CustomEvent('changedd', {detail:place}))
       })
     }
 

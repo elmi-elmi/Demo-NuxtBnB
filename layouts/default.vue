@@ -1,8 +1,8 @@
 <template>
   <div>
     <header style="background-color: #777">
-      <nuxt-link to="/" @changed="changed">Home</nuxt-link>
-      <input type="text" ref="citySearch" @changed="changed">
+      <nuxt-link to="/">Home</nuxt-link>
+      <input type="text" ref="citySearch" @changedd="changedm">
     </header>
     <Nuxt/>
   </div>
@@ -15,7 +15,7 @@ export default {
     this.$maps.makeAutoComplete(this.$refs.citySearch)
   },
   methods: {
-    changed(event) {
+    changedm(event) {
       const place = event.detail
       if (!place.geometry) return
 

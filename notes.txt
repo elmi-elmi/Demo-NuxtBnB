@@ -209,7 +209,7 @@ A JavaScript callback is a function which is to be executed after another functi
 5-  Geo Search
 =======================================================
 1:
-2: autocomplete google place -- dispatchEvent -- CustomEvent
+2:3: autocomplete google place -- dispatchEvent -- CustomEvent --router
 
     // 1
 
@@ -235,7 +235,11 @@ A JavaScript callback is a function which is to be executed after another functi
             input.dispatchEvent(new CustomEvent('changed', {detail:place}))
         })
 
+
+
         ####################################################
+
+
     dispatchEvent:
         dispatchEvent using for call synthetic events;
 
@@ -254,6 +258,8 @@ A JavaScript callback is a function which is to be executed after another functi
     // 3 dispatch event (call it when you want)
     elme.dispatchEvent(myEvent);
 
+
+
     in option you can pass everything you want
 
     <input @nameOfMyEvent='nameOfMyEvent' />
@@ -263,10 +269,18 @@ A JavaScript callback is a function which is to be executed after another functi
         }
         ####################################################
 
+    this.$router.push({
+        name:'search',
+        qeury:{
+            lat: place.geometry.location.lat(),....
+            }
+
+    })
+
+    now make search.vue file
 
 
 
-
-
+4:  watchQuery
 
 
