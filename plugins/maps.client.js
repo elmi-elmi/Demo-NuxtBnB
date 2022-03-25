@@ -8,12 +8,14 @@ export default function (context, inject) {
     inject("maps", {showMap, makeAutoComplete});
 
     function initGoogleMap() {
+
         waiting.forEach(item=>{
             isMapLoaded = true;
             if(typeof item.fn === 'function') {
                 item.fn(...item.arguments)
             }
         })
+
 
         waiting=[];
     }
@@ -26,6 +28,7 @@ export default function (context, inject) {
         // script.skip = process.client && isMapLoaded;
         window.initGoogleMap = initGoogleMap;
         document.head.appendChild(script);
+
     }
 
     function makeAutoComplete(input){
@@ -36,7 +39,8 @@ export default function (context, inject) {
         });
         return;
       }
-      // const center = { lat: 50.064192, lng: -130.605469 };
+
+        // const center = { lat: 50.064192, lng: -130.605469 };
       // Create a bounding box with sides ~10km away from the center point
       //         const defaultBounds = {
       //             north: center.lat + 0.1,
@@ -51,16 +55,21 @@ export default function (context, inject) {
       //     strictBounds: false,
       //     types: ["establishment"],
       // };
-
       const autocomplete = new window.google.maps.places.Autocomplete(
         input,
-          {types:'(cities)'}
+          {types:['(cities)']}
       );
 
-      autocomplete.addListener('place_changed',()=>{
-          const place = autocomplete.getPlace();
+
+
+        autocomplete.addListener('place_changed',()=>{
+            console.log('333333333333333')
+
+            const place = autocomplete.getPlace();
           input.dispatchEvent(new CustomEvent('changedd', {detail:place}))
       })
+
+
     }
 
     function showMap(canvas, lat, lng) {
@@ -83,6 +92,7 @@ export default function (context, inject) {
             position: uluru,
             map: map,
         });
+
     }
 
 }

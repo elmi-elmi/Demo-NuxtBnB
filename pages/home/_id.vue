@@ -121,7 +121,6 @@ export default {
     //     message: userResponse.statusText,
     //   });
     // }
-    console.log("**********************8");
 
     return {
       home: responses[0].json,
