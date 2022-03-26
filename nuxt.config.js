@@ -22,4 +22,7 @@ export default {
 
   // plugins:[{src:'~/plugins/maps.client',mode:'client'}]
   plugins: ["~/plugins/maps.client", "~/plugins/dataApi"],
+
+  modules:[],
+  buildModules:['@nuxtjs/tailwindcss']
 };

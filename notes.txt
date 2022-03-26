@@ -313,8 +313,107 @@ A JavaScript callback is a function which is to be executed after another functi
         ****************************************************
         ****************************************************
 
+10 - mouseover native -- mouseout native
+
+    @mouseover.native
+    @mouseover.native
+
+    use .native if element is a component
 
 
 
+
+=======================================================
+6- Working With Modules
+=======================================================
+1:2: modules -- module options -- add plugin
+    * modules run before built start
+        so you can generating filess, copying assets, fetching data, even changing the webpack config,
+
+    --------------------------------
+    // 1
+        mkdire modules  // it's not specials, it's a convention
+    // 2
+        create test.js in modules
+
+    // 3 nuxt.confing.js
+
+        modules:['~modules/test.js']
+
+    // 4
+        now you start build --> yarn build
+
+
+
+    --------------------------------
+
+    config module with option:
+
+    modules:[['~/modules/test', {message:'my modules option!!!'}]]
+
+    you can access to option in modules with `moduleOptions`
+
+    export default functino(moduleOptions){
+        moduleOptions.message // message=>my modules option!!!
+    }
+
+    --------------------------------
+    add plugin
+
+    you can add plugins with modules --> this.addPlugin(..)
+
+    // 1 create testPlugin.js in plugins
+    // 2 add plugin with module
+
+        in modules open test.js and use this:
+        this.addPlugin(./plugins/testPlugin.js)
+    **** important:
+        you have to remember modules are in the node environment
+        they (modules) are'nt compiled by webpack
+        so you can't use webpack aliases or even shorcuts (~ or not adding .js in the path)
+
+    **** important:
+        modules is not in modules folder
+        it is in root folder
+        so you have not use ../  (it is strange I now)
+        you must assume the modules is in root
+
+
+3:
+    list of hooks: nuxt - renderer - module container -builder - generator
+
+    nuxt --> fire when nuxt starts, listen, has error
+    render--> let you add air middleware
+            or inject extra date into you nuxt client side state
+    module container--> let you extend or modify the container
+    builder--> let you update data going into the build system
+                or even launch functions the entire build starts
+    generator--> talk about it more later
+                greate pre-processing date or even adding extra routes
+
+    -----------------
+    this.nuxt.hook('build:before',()=>{
+        console.log('build before')
+    })
+
+    this.nuxt.hook('render:route',(url, result, context)=>{
+        context.res.setHeader('X-Powered-By', 'Theeeeeee')
+    })
+
+    ---------------------
+
+4: tailwind css -- build modules
+
+    build modules are only used in dev or the build process
+
+    by using this property we're  telling nuxt it doesn't need these modules when we deploy out application
+
+
+    // 1
+        yarn add --dev @nuxtjs/tailwindcss
+
+    // 2
+        nuxt.config:
+            buildModules:['@nuxtjs/tailwindcss']
 
 
