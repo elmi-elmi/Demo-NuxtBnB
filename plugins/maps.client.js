@@ -71,34 +71,45 @@ export default function (context, inject) {
       });
       return;
     }
+    const center = new window.google.maps.LatLng(lat, lng);
 
     const map = new google.maps.Map(canvas, {
-      center: {lat, lng},
-      zoom: 14,
+      center: center,
+      zoom: 18,
+      disableDefaultUI:true,
+      zoomControl:true,
+      styles:[{
+        featureType:'poi.business',
+        elementType:'labels.icon',
+        stylers:[{visibility:'off'}]
+      }]
     });
 
     // The marker, positioned at Uluru
     if (!markers) {
-      const position = { lat, lng };
+      const position = new window.google.maps.LatLng(lat, lng);
 
       const marker = new google.maps.Marker({
         position: position,
+        clickable:false,
         map: map,
       });
       return;
     }
 
     const bounds = new window.google.maps.LatLngBounds();
-
     markers.forEach((home) => {
       const position = new window.google.maps.LatLng(home.lat, home.lng);
       const marker = new google.maps.Marker({
         position: position,
+        label: { text: `$${home.pricePerNight}`, className: `marker home-${home.id}` },
+        icon: "https://maps.gstatic.com/mapfiles/transparent.png",
+        clickable:false,
         map: map,
       });
       bounds.extend(position);
     });
 
-    map.fitBounds(bounds)
+    map.fitBounds(bounds);
   }
 }

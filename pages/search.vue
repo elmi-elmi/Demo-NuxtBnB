@@ -1,14 +1,19 @@
 <template>
   <div>
-    <div>results for {{ label }}</div>
+    <!--    <p>results for {{ label }}</p>-->
     <div style="height: 530px; width: 530px; float: right" ref="map"></div>
-
-    <div v-if="homes.length > 0">
-      <nuxt-link v-for="home in homes" :key="home.objectID" :to="`/home/${home.objectID}`">
-        <HomeRow :home="home" />
-      </nuxt-link>
-    </div>
-    <div v-else>No results found</div>
+    <nuxt-link
+      v-for="home in homes"
+      :key="home.objectID"
+      :to="`/home/${home.objectID}`"
+    >
+      <HomeRow
+        :home="home"
+        @mouseover.native="highlightMarker(home.objectID, true)"
+        @mouseout.native="highlightMarker(home.objectID, false)"
+      />
+    </nuxt-link>
+    <div v-if="homes.length === 0">No results found</div>
   </div>
 </template>
 
@@ -20,14 +25,29 @@ export default {
     this.updateMap();
   },
   methods: {
-    updateMap() {
-      this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers());
+    highlightMarker(homeId, isHighLighted) {
+      document
+        .getElementsByClassName(`home-${homeId}`)[0]
+        ?.classList?.toggle("marker-highlight", isHighLighted);
     },
-    getHomeMarkers(){
-      return this.homes.map(home=>{
-        return {...home._geoloc}
-      })
-    }
+    updateMap() {
+      this.$maps.showMap(
+        this.$refs.map,
+        this.lat,
+        this.lng,
+        this.getHomeMarkers()
+      );
+    },
+    getHomeMarkers() {
+      if (this.homes.length === 0) return null;
+      return this.homes.map((home) => {
+        return {
+          ...home._geoloc,
+          pricePerNight: home.pricePerNight,
+          id: home.objectID,
+        };
+      });
+    },
   },
   async beforeRouteUpdate(to, from, next) {
     console.log("beforerouterUpdate");
@@ -46,7 +66,7 @@ export default {
   async asyncData({ query, $dataApi }) {
     console.log("asyncdata in search .......");
     const data = await $dataApi.getHomeByLocation(query.lat, query.lng);
-    console.log(data.json.hits);
+
     return {
       homes: data.json.hits,
       lat: query.lat,
@@ -57,4 +77,19 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.marker {
+  background-color: white;
+  color: black;
+  border: 1px solid lightgray;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 5px 8px;
+}
+
+.marker-highlight {
+  background-color: black;
+  border: 1px solid lightgray;
+  color: white !important;
+}
+</style>

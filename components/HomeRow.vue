@@ -1,6 +1,8 @@
 <template>
-  <div style="clear: left; padding:15px;">
-    <img :src="home.images[0]" style="width: 200px; float:left; padding-right: 10px " alt="home"  />
+  <div>
+  <div style="clear: left; padding:15px;">  </div>
+
+  <img :src="home.images[0]" style="width: 200px; float:left; padding-right: 10px " alt="home"  />
     {{ home.title }}<br />
     {{ home.location.address }}
     {{ home.location.city }}
@@ -11,7 +13,6 @@
     {{ pluralize(home.beds, "bed") }}
     {{ pluralize(home.bathrooms, "bath") }} <br />
 
-    <!--    {{ home.description }}<br />-->
     ${{ home.pricePerNight }} / night <br />
     <img src="../static/images/star.svg" alt="address" height="20" width="20" />
     {{ home.reviewValue }} ({{home.reviewCount}})<br />
