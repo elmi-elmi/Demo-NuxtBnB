@@ -1,14 +1,29 @@
 <template>
-  <div>
-    <header style="background-color: #777">
-      <nuxt-link to="/">Home</nuxt-link>
-      <input type="text" ref="citySearch" @changedd="changedm">
+  <div class="app">
+    <header class="app-header">
+      <div class="app-logo">
+        <img src="/images/logo.svg" alt="logo">
+      </div>
+      <div class="app-search">
+        <input type="text" ref="citySearch" @changedd="changedm" placeholder="Enter your address">
+        <input type="text" class="datepicker" placeholder="Check in">
+        <input type="text" class="datepicker" placeholder="Check out">
+        <button>
+          <img src="/images/icons/search.svg" alt="search">
+        </button>
+      </div>
+      <div class="app-user-menu">
+        <img src="/images/icons/house.svg" alt="house">
+        <div class="name">Host</div>
+        <img src="/images/user.jpg" alt="user" class="avatar">
+      </div>
     </header>
-    <Nuxt/>
   </div>
+
 </template>
 
 <script>
+
 export default {
   name: "default",
   mounted() {

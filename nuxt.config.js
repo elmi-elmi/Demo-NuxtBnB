@@ -16,13 +16,19 @@ export default {
     ],
   },
 
-  // router:{
-  //     prefetchLinks:false,
-  // },
+  router:{
+      prefetchLinks:false,
+  },
 
   // plugins:[{src:'~/plugins/maps.client',mode:'client'}]
   plugins: ["~/plugins/maps.client", "~/plugins/dataApi"],
 
   modules:[],
-  buildModules:['@nuxtjs/tailwindcss']
+  buildModules:['@nuxtjs/tailwindcss'],
+  css:['~/assets/sass/app.scss'],
+  build:{
+    extractCSS:true,
+    loader:{limit:0}
+  }
+
 };

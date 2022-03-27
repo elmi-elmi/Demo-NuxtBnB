@@ -416,11 +416,15 @@ A JavaScript callback is a function which is to be executed after another functi
         nuxt.config:
             buildModules:['@nuxtjs/tailwindcss']
 
+(in folder 7)
+    use sass:
+        yarn add --dev sass sass-loader
+
 
 =======================================================
 7-  Working with Styles and Design
 =======================================================
-1: base64
+1: base64 -- sass -- sass loader
 
     base64 is a way to represent a binary file using normal text characters
     it's mostly used in email but sometimes on website too
@@ -439,3 +443,40 @@ A JavaScript callback is a function which is to be executed after another functi
     if you're using http in production
     inlining images like this become even more useless
     because http is specifically designes to download many files at the same time.
+
+    (in build property you can tells to webpack not to inline all images or css (assets) (limits:0 and extractsCss))
+    --------------------------------
+    use sass:
+        yarn add --dev sass sass-loader
+
+    ======
+    (in previouse folder):
+        // 1
+        yarn add --dev @nuxtjs/tailwindcss
+
+    // 2
+        nuxt.config:
+            buildModules:['@nuxtjs/tailwindcss']
+
+    ======
+    // 3  yarn add --dev sass sass-loader
+
+    // 4 config.nuxt.js:  // add your any css or css processed files that you want included in the build
+
+        css:['~assets/sass/app.scss']
+
+    // 5 create build in config.nuxt.js
+
+        the build property give you control over the build process
+        you can tweak css setting  transpile setting webpack chunk names and much more
+
+        build:{}
+
+
+        you can tell webpack not inline all the css but keep it  as separete css files
+
+
+        build:{
+            extractCss: true,
+        }
+
