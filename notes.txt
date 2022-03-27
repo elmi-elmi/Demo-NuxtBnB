@@ -417,3 +417,25 @@ A JavaScript callback is a function which is to be executed after another functi
             buildModules:['@nuxtjs/tailwindcss']
 
 
+=======================================================
+7-  Working with Styles and Design
+=======================================================
+1: base64
+
+    base64 is a way to represent a binary file using normal text characters
+    it's mostly used in email but sometimes on website too
+
+    webpack uses different loaders for different types of files or processes
+    one of those is called the url loader
+    by default nuxt tells it to inline images (in the assets folder) and under 1k in file size (I don't recommend this)
+
+    ** when the image size is under 1k --> webpack use base64
+
+    so, how bad is this?
+        --> 1 - it increase you DOM size
+            2 - stops you from lazy loading images
+            3 - prevents you from setting the cach lifetime of this asset (which should be much longer than the lifetime of this page
+
+    if you're using http in production
+    inlining images like this become even more useless
+    because http is specifically designes to download many files at the same time.
