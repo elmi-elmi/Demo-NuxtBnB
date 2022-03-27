@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import pluralize from '~/utils/pluralize';
 export default {
   name: "HomeRow",
   props: {
@@ -29,11 +30,7 @@ export default {
     },
   },
   methods: {
-    pluralize(number, singularWord) {
-      const text = number + " " + singularWord;
-      if (number === 1) return text;
-      return text + "s";
-    },
+    pluralize,
   },
 };
 </script>

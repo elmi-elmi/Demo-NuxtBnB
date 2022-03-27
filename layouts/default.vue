@@ -18,6 +18,7 @@
         <img src="/images/user.jpg" alt="user" class="avatar">
       </div>
     </header>
+    <nuxt />
   </div>
 
 </template>
