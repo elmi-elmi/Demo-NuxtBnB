@@ -1,19 +1,28 @@
 <template>
   <div>
-    <!--    <p>results for {{ label }}</p>-->
-    <div style="height: 530px; width: 530px; float: right" ref="map"></div>
-    <nuxt-link
-      v-for="home in homes"
-      :key="home.objectID"
-      :to="`/home/${home.objectID}`"
-    >
-      <HomeRow
-        :home="home"
-        @mouseover.native="highlightMarker(home.objectID, true)"
-        @mouseout.native="highlightMarker(home.objectID, false)"
-      />
-    </nuxt-link>
-    <div v-if="homes.length === 0">No results found</div>
+    <div class="app-search-results-page">
+      <div class="app-search-results">
+        <div class="app-search-results-listing">
+          <h2 class="app-title">Stays in {{label}}</h2>
+          <nuxt-link
+              v-for="home in homes"
+              :key="home.objectID"
+              :to="`/home/${home.objectID}`"
+          >
+            <HomeRow
+                class="app-house"
+                :home="home"
+                @mouseover.native="highlightMarker(home.objectID, true)"
+                @mouseout.native="highlightMarker(home.objectID, false)"
+            />
+          </nuxt-link>
+        </div>
+        <div class="app-search-results-map">
+          <div class="app-map" ref="map"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -50,7 +59,6 @@ export default {
     },
   },
   async beforeRouteUpdate(to, from, next) {
-    console.log("beforerouterUpdate");
     const data = await this.$dataApi.getHomeByLocation(
       to.query.lat,
       to.query.lng
@@ -64,7 +72,6 @@ export default {
     next();
   },
   async asyncData({ query, $dataApi }) {
-    console.log("asyncdata in search .......");
     const data = await $dataApi.getHomeByLocation(query.lat, query.lng);
 
     return {
