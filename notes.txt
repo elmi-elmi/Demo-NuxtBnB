@@ -478,5 +478,8 @@ A JavaScript callback is a function which is to be executed after another functi
 
         build:{
             extractCss: true,
+            loaders:{
+                limit:0 //this means only file zero bytes will be inlined(disables inlining)
+                    }
         }
 

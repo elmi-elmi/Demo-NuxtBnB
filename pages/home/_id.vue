@@ -3,6 +3,7 @@
     <div class="app-container">
       <PropertyGallery :images="home.images"/>
       <PropertyDetails :home="home" />
+      <PropertyDescription :home="home"/>
     </div>
     <div style="display: flex">
       <img
