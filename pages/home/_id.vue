@@ -4,6 +4,7 @@
       <PropertyGallery :images="home.images"/>
       <PropertyDetails :home="home" />
       <PropertyDescription :home="home"/>
+      <PropertyMap :home="home"/>
     </div>
     <div style="display: flex">
       <img
@@ -25,7 +26,7 @@
         width="20"
     />
     {{ home.location.address }} {{ home.location.city }}
-    {{ home.location.state }} <br/>
+    {{ home.location.state }}   {{ home.location.country }} <br/>
     <img
         src="../../static/images/star.svg"
         alt="address"
