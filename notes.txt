@@ -483,3 +483,226 @@ A JavaScript callback is a function which is to be executed after another functi
                     }
         }
 
+
+=======================================================
+8- Authentication
+=======================================================
+1:
+    outh client create  (google)
+
+2:  runtime config -- public runtime config -- private runtime config -- env files
+
+    let you specify config values
+                                * that are available all over your app
+                                like in plugins, modules, async data, fetch and components
+
+                                * they support both
+                                            public
+                                            private values
+
+                                * so you can keep your more
+                                sesetive items out of the browser
+
+                                * they integrate really well with env files
+
+
+    -----------------------------------
+
+    publicRuntimeConfig:{
+            test1:'public1...',
+            test2:'public2...
+        }
+
+    priveteRuntimeConfig:{
+        test2: "private...",
+    }
+
+    in server-side test2 overwrite by privateruntime
+    it means in ssr test2 is "private..."
+        but in client side is "public2..."
+    and in client overwrite by publicruntime...
+    ------------------------------------
+    when nuxt starts up:
+
+        take both of these objects(private and public)
+        and combined them
+
+        * once for the browser using only public
+        * once again for the server using both public and private
+
+    ####################################################
+    use caution when using private
+    it's intended for server-side rendering
+    if you use it in pre-rendered sites
+        your private information would be visible to everyone
+
+    these values are now accessible through the global plugin called config
+    ####################################################
+
+
+
+
+env: mkdir .env
+
+    env files are used to store sesetive informatin they want available to your backend but not the browser.
+
+    in .env:
+        TEST = 'super private ......';
+
+    add this files  to .gitignore
+
+
+     priveteRuntimeConfig:{
+        test2: process.env.TEST
+    }
+
+3: vuex -- store
+
+    mkdir store (in root)
+    touch index.js
+    -------------------------------
+    state:
+
+    state==> state musb be a function that returns an object (unlike traditional vuex)
+
+    export const state = ()=>({})
+
+
+example:
+
+    export const state  = () => ({
+            counter:0,
+        })
+
+        * if it wat an object it would actually be sharing the state across all of your web users
+            which would be a very bad thing
+
+    --------------------------------
+    action - mutations
+
+    actions and mutations are object
+        since actions and mutations get past the state
+            they don't need to be functions
+
+    export const actions = {}
+    export const mutations = {}
+
+example:
+
+    export const actions = {
+        counterUp({state, commit}){
+            commit('setCounter', state.counter+1)
+        }
+    }
+
+    export const mutations = {
+            setCounter({state, value}){
+                state.counter = value;
+            }
+        }
+
+
+    ----------------------------------
+    getters
+
+    export const getters = {}
+
+example:
+
+    export const getters = {
+        myGetter(state){
+            return state.counter + 1000;
+        }
+    }
+    ---------------------------------------
+
+    for namespace change index.js to auth.js  (for example)
+
+    and --> this.$store.dispatch('auth/counterUp')
+
+
+4: Integrating Google Sign-In into your web app
+https://developers.google.com/identity/sign-in/web/reference
+-->
+Go to the Credentials page.
+Click Create credentials > OAuth client ID.
+Select the Web application application type.
+Name your OAuth 2.0 client and click Create
+
+
+Load the Google Platform Library
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+    create auth client api in google
+
+    clientID:
+    633319737589-l3oh0dvq3bo360a92u4h0tjp5d9g6633.apps.googleusercontent.com
+
+    clientSecret:
+    Client secret
+        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
+
+
+   // 1
+   publicRuntimeConfig:{
+        auth:{
+            cookieName:'idToken',
+            clientId:....
+        }
+    }
+
+   // 2
+    add google element to default layout
+
+            <div id="googleButton" ></div>
+
+   // 3
+    plugins:
+       touch  auth.client.js
+
+        auth.client.js:
+        export default  ({$config})=>{}
+
+    //4
+        add script with auth.client.js
+
+        export default  ({$config})=>{
+
+        addScript()
+            function addScript(){...}
+        }
+
+    // 5
+        add google platform library:
+        <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+    // 6
+        init in google:
+        function init() {
+            gapi.load('auth2', function() {
+                    /* Ready. Make a call to gapi.auth2.init or some other API */
+                });
+                }
+
+        add it to code:
+            function init() {
+                window.gapi.load('auth2',async function() {
+                    const auth2 = await window.gapi.init({
+                            clientId:$config.auth.clientId,
+                            });
+
+                    windos.gapi.sigin2.render('googleButton')
+                });
+                }
+
+
+
+        you can add option to render:
+         windos.gapi.sigin2.render('googleButton',{
+            onsuccess:parseuser
+         })
+
+         function parseuser(user){
+         const profile = user.getBasicProfile();
+         console.log(profile.getName()}
+         console.log(profile.getImageUrl())

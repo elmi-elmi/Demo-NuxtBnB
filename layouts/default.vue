@@ -17,10 +17,11 @@
         <div class="name">Host</div>
         <img src="/images/user.jpg" alt="user" class="avatar">
       </div>
+      <div id="googleButton"></div>
     </header>
+
     <nuxt />
   </div>
-
 </template>
 
 <script>
@@ -31,6 +32,7 @@ export default {
     this.$maps.makeAutoComplete(this.$refs.citySearch)
   },
   methods: {
+
     changedm(event) {
       const place = event.detail
       if (!place.geometry) return
