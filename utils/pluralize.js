@@ -3,3 +3,4 @@ export default (number, singularWord) => {
   if (number === 1) return text;
   return text + "s";
 };
+// Test
